@@ -34,17 +34,18 @@ RPMS , SRPM Files of this CentOS-Bind-DLZ
 Current of this Samba4-DC Build are stored on Our Drop box url : https://www.dropbox.com/sh/p4ijdacy90xebqk/4moyZY9Ne8 Currently 
 RPMS are created for : 
 
- Wrote: /root/rpmbuild/SRPMS/bind-9.9.6-4.el6.src.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-devel-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-lite-devel-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-sdb-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-libs-lite-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/noarch/bind-license-9.9.6-4.el6.noarch.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-doc-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-libs-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-lwresd-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-utils-9.9.6-4.el6.x86_64.rpm
- Wrote: /root/rpmbuild/RPMS/x86_64/bind-chroot-9.9.6-4.el6.x86_64.rpm
+
+ Wrote: /root/rpmbuild/SRPMS/bind-9.9.6-4.el6.src.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-devel-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-lite-devel-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-sdb-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-libs-lite-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/noarch/bind-license-9.9.6-4.el6.noarch.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-doc-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-libs-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-lwresd-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-utils-9.9.6-4.el6.x86_64.rpm <br>
+ Wrote: /root/rpmbuild/RPMS/x86_64/bind-chroot-9.9.6-4.el6.x86_64.rpm <br>
 
 
