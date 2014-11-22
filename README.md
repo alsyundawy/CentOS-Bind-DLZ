@@ -27,14 +27,13 @@ reason for this RPM BUild Project :
 Thus the distributed Centos / FC / RedHat BIND9 RPMS are allmost Incompatible with the Modern samba 4.1.2 and up.
 
 
-
 RPMS , SRPM Files of this CentOS-Bind-DLZ
  are stored on Our Drop box url :
 
-Current of this Samba4-DC Build are stored on Our Drop box url : https://www.dropbox.com/sh/56xu6o49pnkrrhv/AACaz6_nryOlSRsT_7CNKYWOa?dl=0 
+https://www.dropbox.com/sh/56xu6o49pnkrrhv/AACaz6_nryOlSRsT_7CNKYWOa?dl=0 
 Currently  RPMS are created for  x86_64 Centos el6, compiled on centos6.5
 
 
-
+This been tested with sernet-samba rpms for centos.
 
 
