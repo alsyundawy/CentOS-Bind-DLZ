@@ -100,7 +100,7 @@ Provides:       dnssec-conf = %{epoch}:%{version}-%{release}
 Obsoletes:      bind-config < 30:9.3.2-34.fc6
 Obsoletes:      bind-config < 30:9.3.2-34.el6
 Provides:       bind-config = %{epoch}:%{version}-%{release}
-Conflicts:      bind  < 75:
+Conflicts:      bind  < 63:
 
 Url:            http://isc.org/sw/bind/
 Packager:       Horst Venzke <horst.venzke@remsnet.de>
