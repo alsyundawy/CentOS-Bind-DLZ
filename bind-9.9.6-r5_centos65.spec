@@ -236,6 +236,7 @@ Summary: BIND server with database backends and DLZ support
 Group:   System Environment/Daemons
 Requires:       bind-libs = %{epoch}:%{version}-%{release}
 Requires:       bind-license = %{epoch}:%{version}-%{release}
+Requires:       postgresql-libs
 Provides:       bind-sdb = %{epoch}:%{version}-%{release}
 Conflicts:      bind-sdb < 75:
 
