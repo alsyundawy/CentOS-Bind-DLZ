@@ -1,0 +1,110 @@
+<pre>
+
+1- bind dlz download the rpm from https://www.dropbox.com/sh/56xu6o49pnkrrhv/AACaz6_nryOlSRsT_7CNKYWOa?dl=0
+   as stated at https://github.com/remsnet/CentOS-Bind-DLZ 
+   - install the bind 9.9
+   - configure bind9
+   - chkconfig bind on
+   - service bind restart
+ 
+2  - you need to register at www.sernet.de 
+        -> https://portal.enterprisesamba.com/users/sign_up "On this registration portal, 
+         you can create an account that gives you access to selected software downloads on SerNet's download server."
+ 
+3 check repro file i.e for samba 4.1
+
+root@samba4:yum.repos.d# pwd
+
+/etc/yum.repos.d # 
+root@samba4:yum.repos.d#  vi  sernet-samba-4.1.repo
+
+[sernet-samba-4.1]
+name=SerNet Samba 4.1 Packages (centos-6)
+type=rpm-md
+baseurl=https://USERNAME:ACCESSKEY@download.sernet.de/packages/samba/4.1/centos/6/
+gpgcheck=1
+gpgkey=https://USERNAME:ACCESSKEY@download.sernet.de/packages/samba/4.1/centos/6/repodata/repomd.xml.key
+enabled=1
+
+4 yum update
+ 
+5.1- install sernet-samba
+
+ $ yum search sernet-samba
+ 
+ $ yum install sernet-samba ...
+ 
+ 
+
+6 - configure samba4dc as stated on samba4 wiki  https://wiki.samba.org/index.php/Samba_AD_DC_HOWTO
+6.1 prepare and deploy DC domain
+  
+  $ yum install krb-workstation ntpdate ntp
+  $ vi /etc/krb.conf
+  ..
+  # cat /etc/krb5.conf
+[logging]
+ default = FILE:/var/log/krb5libs.log
+ kdc = FILE:/var/log/krb5kdc.log
+ admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+ default_realm = <YOURREALM.FQDN>
+ dns_lookup_realm = true
+ dns_lookup_kdc = true
+ ticket_lifetime = 24h
+ renew_lifetime = 7d
+ forwardable = true
+
+[realms]
+ <YOURREALM.FQDN> = {
+  kdc = <yourad-servername>.<youdnsdomain.fqdn> 
+  admin_server = <yourad-servername>.<youdnsdomain.fqdn> 
+ }
+
+[domain_realm]
+ .<youdnsdomain.fqdn> = <YOURREALM.FQDN>
+ <youdnsdomain.fqdn>  = <YOURREALM.FQDN>
+
+[appdefaults]
+        pam = {
+                debug = false
+                ticket_lifetime = 36000
+                renew_lifetime = 36000
+                forwardable = true
+                krb4_convert = false
+}
+
+[kdc]
+  ..
+  
+  $ mkdir -p /var/lib/samba/ntp_signd
+  $ chown root:ntp /var/lib/samba/ntp_signd/
+  $ chmod 750 /var/lib/samba/ntp_signd/
+  $ ntpdate <your ntpsevrer>
+  $ chkconfig ntp on
+
+  $ vi /etc/ntp.conf
+..
+ <your ntp config> see https://wiki.samba.org/index.php/Samba_AD_DC_HOWTO#Configure_NTP
+..
+  $ service ntp restart
+
+
+  
+  $ cd /etc/samba
+  $ mv smb.conf smb.conf_sample
+  
+  $ vi /etc/resolv.conf
+   nameserver 127.0.0.1
+   domain <youtdomain>.fqdn
+  
+  $ vi /etc/krb
+   
+  $ samba-tool domain provision --use-rfc2307 --interactive -Uadministrator --realm=<YOURREALM.FQDN> --dns-backend=BIND9_DLZ
+ ...
+ 
+ 6.2 update bind9 conf and restart bind
+ 
+ 
+ </pre>
