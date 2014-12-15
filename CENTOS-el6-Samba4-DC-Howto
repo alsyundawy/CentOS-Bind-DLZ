@@ -3,6 +3,79 @@ Centos quick & Dirty Howto
 
 <pre>
 
+0- disable selinux & update iptables
+  0.1 disable selinux 
+     see https://www.centos.org/docs/5/html/5.1/Deployment_Guide/sec-sel-enable-disable.html#
+     vi /etc/sysconfig/selinux
+      SELINUX=disabled 
+     $ reboot 
+     
+ 0.2 /etc/fstab
+    $ yum update 
+    $ yum install acl libacl attr
+    
+   edit /etc/fstab,    make shure  that options "user_xattr,acl" been set !!
+     
+    $ reboot 
+     
+  0.3 update iptables 
+     $ chkconfig iptables on
+     $ service iptables stop
+     cp -p /etc/sysconfig/iptables /etc/sysconfig/iptables.old
+     vi /etc/sysconfig/iptables
+  # Firewall configuration written by system-config-firewall
+# Manual customization of this file is not recommended.
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+-A INPUT -m comment --comment "DNS" -p tcp -m state --state NEW -m tcp --dport 53 -j ACCEPT
+-A INPUT -m comment --comment "DNS" -p udp -m state --state NEW -m udp --dport 53 -j ACCEPT
+-A INPUT -m comment --comment "TIME" -p tcp -m state --state NEW -m tcp --dport 37 -j ACCEPT
+-A INPUT -m comment --comment "TIME" -p udp -m state --state NEW -m udp --dport 37 -j ACCEPT
+-A INPUT -m comment --comment "NTP" -p tcp -m state --state NEW -m tcp --dport 123 -j ACCEPT
+-A INPUT -m comment --comment "NTP" -p udp -m state --state NEW -m udp --dport 123 -j ACCEPT
+-A INPUT -m comment --comment "RSYNC" -p tcp -m state --state NEW -m tcp --dport 873 -j ACCEPT
+-A INPUT -m comment --comment "RSYNC" -p udp -m state --state NEW -m udp --dport 873 -j ACCEPT
+-A INPUT -m comment --comment "End Point Mapper (DCE/RPC Locator Service)" -p tcp -m state --state NEW -m tcp --dport 135 -j ACCEPT
+-A INPUT -m comment --comment "NetBIOS Name Service" -p udp -m state --state NEW -m udp --dport 137 -j ACCEPT
+-A INPUT -m comment --comment "NetBIOS Name Datagram" -p udp -m state --state NEW -m udp --dport 138 -j ACCEPT
+-A INPUT -m comment --comment "NetBIOS Name Session" -p tcp -m state --state NEW -m tcp --dport 139 -j ACCEPT
+-A INPUT -m comment --comment "Kerberos" -p tcp -m state --state NEW -m tcp --dport 88 -j ACCEPT
+-A INPUT -m comment --comment "Kerberos" -p udp -m state --state NEW -m udp --dport 88 -j ACCEPT
+-A INPUT -m comment --comment "LDAP" -p tcp -m state --state NEW -m tcp --dport 389 -j ACCEPT
+-A INPUT -m comment --comment "LDAP" -p udp -m state --state NEW -m udp --dport 389 -j ACCEPT
+-A INPUT -m comment --comment "LDAPS" -p tcp -m state --state NEW -m tcp --dport 636 -j ACCEPT
+-A INPUT -m comment --comment "SMB over TCP" -p tcp -m state --state NEW -m tcp --dport 445 -j ACCEPT
+-A INPUT -m comment --comment "Kerberos kpasswd" -p tcp -m state --state NEW -m tcp --dport 464 -j ACCEPT
+-A INPUT -m comment --comment "Kerberos kpasswd" -p udp -m state --state NEW -m udp --dport 464 -j ACCEPT
+-A INPUT -m comment --comment "CUPS" -p tcp -m state --state NEW -m tcp --dport 631 -j ACCEPT
+-A INPUT -m comment --comment "CUPS" -p udp -m state --state NEW -m udp --dport 631 -j ACCEPT
+-A INPUT -m comment --comment "RPC" -p tcp -m state --state NEW -m tcp --dport 1024 -j ACCEPT
+-A INPUT -m comment --comment "Global Catalog" -p tcp -m state --state NEW -m tcp --dport 3268 -j ACCEPT
+-A INPUT -m comment --comment "Global Catalog SSL" -p tcp -m state --state NEW -m tcp --dport 3269 -j ACCEPT
+-A INPUT -m comment --comment "Multicast DNS" -p tcp -m state --state NEW -m tcp --dport 5353 -j ACCEPT
+-A INPUT -m comment --comment "Multicast DNS" -p udp -m state --state NEW -m udp --dport 5353 -j ACCEPT
+-A INPUT -m comment --comment "SQUID" -p udp -m state --state NEW -m udp --dport 3128 -j ACCEPT
+-A INPUT -m comment --comment "SQUID" -p tcp -m state --state NEW -m tcp --dport 3128 -j ACCEPT
+-A INPUT -m comment --comment "NRPE" -p tcp -m state --state NEW -m tcp --dport 5666 -j ACCEPT
+-A INPUT -m comment --comment "SMTP" -p tcp -m state --state NEW -m tcp --dport 25 -j ACCEPT
+-I INPUT -m comment --comment "NFS" -m state --state NEW -p tcp -m multiport --dport 111,892,2049,32803 -j ACCEPT
+-I INPUT -m comment --comment "NFS" -m state --state NEW -p udp -m multiport --dport 111,892,2049,32803 -j ACCEPT
+-I INPUT -m comment --comment "SYSLOG" -m state --state NEW -p tcp --dport 514 -j ACCEPT
+-I INPUT -m comment --comment "SYSLOG" -m state --state NEW -p udp --dport 514 -j ACCEPT
+-I INPUT -m comment --comment "CUPS" -m state --state NEW -p tcp --dport 613 -j ACCEPT
+-I INPUT -m comment --comment "CUPS" -m state --state NEW -p udp --dport 613 -j ACCEPT
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+
+$ service iptables start
+
 1- bind dlz download the rpm from https://www.dropbox.com/sh/56xu6o49pnkrrhv/AACaz6_nryOlSRsT_7CNKYWOa?dl=0
    as stated at https://github.com/remsnet/CentOS-Bind-DLZ 
    - install the bind 9.9
