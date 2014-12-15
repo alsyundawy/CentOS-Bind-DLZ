@@ -106,5 +106,29 @@ enabled=1
  
  6.2 update bind9 conf and restart bind
  
+# mkdir -p /var/run/named/
+
+# id named
+uid=25(named) gid=25(named) Gruppen=25(named)
+# chgrp named /var/lib/samba/private/dns.keytab /var/run/named/
+# chmod g+rw /var/lib/samba/private/dns.keytab /var/run/named/
+#  chown -R named:named /var/run/named
+# chmod g+rw  /var/lib/samba/private/
+# chmod o+rw  /var/lib/samba/private/
+# chmod g+rw /var/lib/samba/private/dns
+# chown root:named /var/lib/samba/private/dns
+
+edit /etc/named.conf as per https://wiki.samba.org/index.php/DNS_Backend_BIND#Bind_9.8_.2F_9.9
+
+$ service bind restart
+
+6.2 configure smb.conf , restart ad
+
+configure smb.conf as per i.e  http://www.informatik-aktuell.de/betrieb/server/samba-4-als-domaincontroller-einrichten-und-verwalten.html
+ 
+ # service sernet-samba-ad stop
+ # service sernet-samba-ad start
+ 
+ 
  
  </pre>
